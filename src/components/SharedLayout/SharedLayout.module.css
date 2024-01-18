@@ -1,0 +1,28 @@
+.header {
+  background-color: lightgrey;
+}
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+.container nav {
+  font-size: 25px;
+  font-weight: 700;
+  padding: 20px 30px;
+}
+
+.container > nav > a {
+  padding: 10px 0;
+  margin-right: 20px;
+  color: black;
+  text-decoration: none;
+}
+.container > nav > a.active {
+  color: green;
+}
+
+section > .container {
+  padding-top: 15px;
+}
