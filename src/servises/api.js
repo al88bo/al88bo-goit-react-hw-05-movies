@@ -5,6 +5,8 @@ axios.defaults.headers.common['Authorization'] =
   'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYzMwOTc1OWQyYmUwMzRjNDE5NGYyOTlhY2YzMjI3OSIsInN1YiI6IjY1YTdkYTY0NTFjMDFmMDEyMjYwYzExNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.qc0NOyzXJpWtkCaIQNk6PPQB7PuhhSZ-rnDsPlxPeKY';
 
 export const IMG_BASE_URL = 'https://image.tmdb.org/t/p/w300/';
+export const IMG_DEFAULT =
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png';
 
 export const getTrendingMovieDay = async () => {
   const { data } = await axios.get('trending/movie/day');

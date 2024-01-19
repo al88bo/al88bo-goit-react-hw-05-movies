@@ -1,7 +1,7 @@
 import { Loader } from '../../components/Loader/Loader';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
-import { IMG_BASE_URL, getMovieDetailsById } from 'servises/api';
+import { IMG_BASE_URL, IMG_DEFAULT, getMovieDetailsById } from 'servises/api';
 import css from './MovieDetails.module.css';
 
 const MovieDetails = () => {
@@ -9,7 +9,7 @@ const MovieDetails = () => {
   const [loading, setLoading] = useState(false);
   const { movieId } = useParams();
   const location = useLocation();
-  const backLinkHref = location.state?.from ?? '/';
+  const backLinkRef = useRef(location.state?.from ?? '/');
   const genres = movie?.genres.map(obj => obj.name).join(' ');
   const score = (movie?.vote_average * 10).toFixed(0);
 
@@ -24,7 +24,7 @@ const MovieDetails = () => {
 
   return (
     <>
-      <Link className={css['go-back']} to={backLinkHref}>
+      <Link className={css['go-back']} to={backLinkRef.current}>
         Go back
       </Link>
       {loading && <Loader />}
@@ -32,7 +32,11 @@ const MovieDetails = () => {
         <div>
           <div className={css.details}>
             <img
-              src={`${IMG_BASE_URL + movie.poster_path}`}
+              src={
+                movie.poster_path
+                  ? IMG_BASE_URL + movie.poster_path
+                  : IMG_DEFAULT
+              }
               alt="poster"
               width="200"
               height="300"
@@ -60,7 +64,9 @@ const MovieDetails = () => {
               </li>
             </ul>
           </div>
-          <Outlet />
+          <Suspense fallback={<Loader />}>
+            <Outlet />
+          </Suspense>
         </div>
       )}
     </>

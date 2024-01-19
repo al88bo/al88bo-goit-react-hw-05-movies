@@ -1,9 +1,9 @@
 import { Loader } from 'components/Loader/Loader';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { IMG_BASE_URL, getMovieCastById } from 'servises/api';
+import { IMG_BASE_URL, IMG_DEFAULT, getMovieCastById } from 'servises/api';
 
-export const Cast = () => {
+const Cast = () => {
   const [cast, setCast] = useState(null);
   const [loading, setLoading] = useState(false);
   const { movieId } = useParams();
@@ -25,7 +25,7 @@ export const Cast = () => {
             <li key={id}>
               <div>
                 <img
-                  src={IMG_BASE_URL + profile_path}
+                  src={profile_path ? IMG_BASE_URL + profile_path : IMG_DEFAULT}
                   alt="actor"
                   width="200"
                   height="300"
@@ -40,3 +40,5 @@ export const Cast = () => {
     </>
   );
 };
+
+export default Cast;

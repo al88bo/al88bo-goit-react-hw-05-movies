@@ -1,12 +1,12 @@
 import { Loader } from 'components/Loader/Loader';
+import { MoviesList } from 'components/MoviesList/MoviesList';
 import { useEffect, useState } from 'react';
-import { useSearchParams, Link, useLocation } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { getMovieByQuery } from 'servises/api';
 
 const Movies = () => {
   const [movies, setMovies] = useState(null);
   const [loading, setLoading] = useState(false);
-  const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query');
 
@@ -32,18 +32,7 @@ const Movies = () => {
         <input type="text" name="searchInput" defaultValue={query} required />
         <button type="submit">Search</button>
       </form>
-      {loading && <Loader />}
-      {!loading && movies && (
-        <ul>
-          {movies?.map(({ id, title }) => (
-            <li key={id}>
-              <Link to={`${id}`} state={{ from: location }}>
-                {title}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+      {loading ? <Loader /> : <MoviesList movies={movies} />}
     </section>
   );
 };
